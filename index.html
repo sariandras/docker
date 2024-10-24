@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vicc generátor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #jokeContainer {
+            font-size: 1.5rem;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            display: inline-block;
+        }
+        button {
+            font-size: 1rem;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Vicc generátor</h1>
+    <div id="jokeContainer">Kattints a gombra egy véletlenszerű viccért!</div>
+    <br>
+    <button onclick="fetchJoke()">Új vicc kérése</button>
+
+    <script>
+        function fetchJoke() {
+            // Kérés a szerver felé
+            fetch('http://localhost:8001/joke')
+                .then(response => response.json())
+                .then(data => {
+                    // Vicc megjelenítése
+                    document.getElementById('jokeContainer').innerText = data.joke;
+                })
+                .catch(error => {
+                    console.error('Hiba történt:', error);
+                    document.getElementById('jokeContainer').innerText = 'Nem sikerült betölteni a viccet.';
+                });
+        }
+    </script>
+
+</body>
+</html>
