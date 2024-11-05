@@ -1,6 +1,8 @@
 name: Docker Image CI
 
 on:
+  workflow_dispatch:
+  
   push:
     branches: [ "main" ]
   pull_request:
@@ -17,5 +19,5 @@ jobs:
     - name: Build the Docker image
       run: | 
         docker build . --file Dockerfile --tag ghcr.io/joke-client:0.1
-        docker login ghcr.io -sariandras -p {{secrets.CR_TOKEN}}
+        docker login ghcr.io -u sariandras -p {{secrets.CR_TOKEN}}
         docker push ghcr.io/joke-client:0.1
